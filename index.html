@@ -27,8 +27,33 @@
     <input placeholder="ZIP Code" required>
 
     <button type="submit">Get My Quote</button>
- <form action="https://yourmortgageprotectionplan.com/api/lead" method="POST">
+<form id="leadForm">
 </div>
 
+<script>
+document.getElementById('leadForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+
+  const data = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+
+  console.log("Sending lead:", data);
+
+  await fetch('/api/lead', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  alert("Submitted!");
+});
+</script>
+  
 </body>
 </html>
