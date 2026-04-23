@@ -31,27 +31,30 @@
 </div>
 
 <script>
-document.getElementById('leadForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
+window.addEventListener('load', function () {
+  const form = document.getElementById('leadForm');
 
-  const formData = new FormData(this);
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-  const data = {};
-  formData.forEach((value, key) => {
-    data[key] = value;
+    const data = {
+      first_name: form.querySelector('[name="first_name"]').value,
+      last_name: form.querySelector('[name="last_name"]').value,
+      phone: form.querySelector('[name="phone"]').value,
+      email: form.querySelector('[name="email"]').value,
+      zip: form.querySelector('[name="zip"]').value
+    };
+
+    console.log("SENDING:", data);
+
+    await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    alert("Lead submitted");
   });
-
-  console.log("Sending lead:", data);
-
-  await fetch('/api/lead', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-
-  alert("Submitted!");
 });
 </script>
   
