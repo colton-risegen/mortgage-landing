@@ -25,7 +25,7 @@
     <input name="email" placeholder="Email" required>
     <input name="zip" placeholder="ZIP Code" required>
     <input type="hidden" name="trusted_form" id="trusted_form">
-    <input type="hidden" name="jornaya_id" id="jornaya_id">
+    <input type="hidden" name="leadid_token" id="leadid_token">
 
     <button type="submit">Get My Quote</button>
   </form>
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
   email: form.email.value,
   zip: form.zip.value,
   trusted_form: document.getElementById('trusted_form').value,
-  jornaya_id: document.getElementById('jornaya_id').value
+  jornaya_id: document.getElementById('leadid_token').value
 };
 
     console.log("SENDING:", data);
@@ -84,16 +84,18 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <!-- JORNAYA SCRIPT -->
-<script type="text/javascript">
+<script id="LeadiDscript" type="text/javascript">
 (function() {
-  var jl = document.createElement('script');
-  jl.type = 'text/javascript';
-  jl.async = true;
-  jl.src = 'https://cdn.leadid.com/leadid.js';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(jl, s);
+var s = document.createElement('script');
+s.id = 'LeadiDscript_campaign';
+s.type = 'text/javascript';
+s.async = true;
+s.src = '//create.lidstatic.com/campaign/d1fdddfe-9032-81b5-2356-5fdbe83d0957.js?snippet_version=2';
+var LeadiDscript = document.getElementById('LeadiDscript');
+LeadiDscript.parentNode.insertBefore(s, LeadiDscript);
 })();
 </script>
+<noscript><img src='//create.leadid.com/noscript.gif?lac=5544F172-B5DB-41FA-A6A0-171A053F0B4E&lck=d1fdddfe-9032-81b5-2356-5fdbe83d0957&snippet_version=2' /></noscript>
 
 </body>
 </html>
