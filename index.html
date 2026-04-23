@@ -126,16 +126,22 @@ document.addEventListener('DOMContentLoaded', function () {
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const data = {
-      first_name: form.first_name.value,
-      last_name: form.last_name.value,
-      phone: form.phone.value.replace(/\D/g, ''),
-      email: form.email.value,
-      zip: form.zip.value,
-     trusted_form_cert_url: document.getElementById('xxTrustedFormCertUrl').value,
-universal_leadid: document.getElementById('universal_leadid').value,
-      tcpa_text: document.querySelector('.consent').innerText
-    };
+   const data = {
+  first_name: form.first_name.value,
+  last_name: form.last_name.value,
+  phone: form.phone.value.replace(/\D/g, ''),
+  email: form.email.value,
+
+  address: form.address.value,
+  city: form.city.value,
+  state: form.state.value.toUpperCase(),
+  zip: form.zip.value,
+
+  trusted_form_cert_url: document.getElementById('xxTrustedFormCertUrl').value,
+  universal_leadid: document.getElementById('universal_leadid').value,
+
+  tcpa_text: document.querySelector('.consent').innerText
+};
 
     console.log("SENDING:", data);
 
