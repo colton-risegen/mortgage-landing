@@ -71,5 +71,29 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<!-- TRUSTEDFORM SCRIPT -->
+<script type="text/javascript">
+(function() {
+  var tf = document.createElement('script');
+  tf.type = 'text/javascript';
+  tf.async = true;
+  tf.src = 'https://api.trustedform.com/trustedform.js?field=trusted_form';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(tf, s);
+})();
+</script>
+
+<!-- JORNAYA SCRIPT -->
+<script type="text/javascript">
+(function() {
+  var jl = document.createElement('script');
+  jl.type = 'text/javascript';
+  jl.async = true;
+  jl.src = 'https://cdn.leadid.com/leadid.js';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(jl, s);
+})();
+</script>
+
 </body>
 </html>
