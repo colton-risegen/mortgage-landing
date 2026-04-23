@@ -12,51 +12,60 @@
   </style>
 </head>
 
-  
 <body>
 
 <div class="box">
   <h2>Protect Your Mortgage. Protect Your Family.</h2>
   <p>Get a free quote in minutes.</p>
 
-  <form>
-    <input placeholder="First Name" required>
-    <input placeholder="Last Name" required>
-    <input placeholder="Phone" required>
-    <input placeholder="Email" required>
-    <input placeholder="ZIP Code" required>
+  <form id="leadForm">
+    <input name="first_name" placeholder="First Name" required>
+    <input name="last_name" placeholder="Last Name" required>
+    <input name="phone" placeholder="Phone" required>
+    <input name="email" placeholder="Email" required>
+    <input name="zip" placeholder="ZIP Code" required>
 
     <button type="submit">Get My Quote</button>
-<form id="leadForm">
+  </form>
 </div>
 
 <script>
-window.addEventListener('load', function () {
+document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('leadForm');
+
+  if (!form) {
+    console.error("FORM NOT FOUND");
+    return;
+  }
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const data = {
-      first_name: form.querySelector('[name="first_name"]').value,
-      last_name: form.querySelector('[name="last_name"]').value,
-      phone: form.querySelector('[name="phone"]').value,
-      email: form.querySelector('[name="email"]').value,
-      zip: form.querySelector('[name="zip"]').value
+      first_name: form.first_name.value,
+      last_name: form.last_name.value,
+      phone: form.phone.value,
+      email: form.email.value,
+      zip: form.zip.value
     };
 
     console.log("SENDING:", data);
 
-    await fetch('/api/lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
 
-    alert("Lead submitted");
+      console.log("RESPONSE:", await res.text());
+      alert("Lead submitted");
+    } catch (err) {
+      console.error("ERROR:", err);
+    }
   });
 });
 </script>
-  
+
 </body>
 </html>
