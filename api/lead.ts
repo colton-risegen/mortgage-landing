@@ -21,14 +21,16 @@ export default async function handler(req: any, res: any) {
 
     console.log("NEW LEAD:", data);
 
-    await supabase.from('leads').insert({
-      first_name: data.first_name,
-      last_name: data.last_name,
-      phone: data.phone,
-      email: data.email,
-      zip: data.zip,
-      billable: false
-    });
+   await supabase.from('leads').insert({
+  first_name: data.first_name,
+  last_name: data.last_name,
+  phone: data.phone,
+  email: data.email,
+  zip: data.zip,
+  trusted_form: data.trusted_form,
+  jornaya_id: data.jornaya_id,
+  billable: false
+});
 
     res.status(200).send('OK');
   });
