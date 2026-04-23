@@ -21,9 +21,9 @@
   <form id="leadForm">
     <input name="first_name" placeholder="First Name" required>
     <input name="last_name" placeholder="Last Name" required>
-    <input name="phone" placeholder="Phone" required>
-    <input name="email" placeholder="Email" required>
-    <input name="zip" placeholder="ZIP Code" required>
+    <input name="phone" placeholder="Phone" required pattern="[0-9]{10}" title="Enter 10 digit phone number">
+    <input name="email" placeholder="Email" required type="email">
+    <input name="zip" placeholder="ZIP Code" required pattern="[0-9]{5}" title="Enter 5 digit ZIP code">
     <input type="hidden" name="trusted_form" id="trusted_form">
     <input type="hidden" name="leadid_token" id="leadid_token">
     <input type="hidden" name="tcpa_text" id="tcpa_text">
