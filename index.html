@@ -123,6 +123,26 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('leadForm');
 
+  // 🔥 SET JORNAYA VALUE INTO HIDDEN FIELD
+function setJornaya() {
+  try {
+    const jornayaField = document.getElementById('universal_leadid');
+
+    // Jornaya injects into window.LeadiD
+    if (window.LeadiD && window.LeadiD.token) {
+      jornayaField.value = window.LeadiD.token;
+    }
+  } catch (e) {
+    console.error("Jornaya assignment error:", e);
+  }
+}
+
+// Run multiple times to ensure script has loaded
+setJornaya();
+setTimeout(setJornaya, 500);
+setTimeout(setJornaya, 1000);
+setTimeout(setJornaya, 1500);
+
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -136,6 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
   city: form.city.value,
   state: form.state.value.toUpperCase(),
   postal_code: form.zip.value,
+  lead_type: "mortgage",
 
   trusted_form_cert_url: document.getElementById('xxTrustedFormCertUrl').value,
   universal_leadid: document.getElementById('universal_leadid').value,
