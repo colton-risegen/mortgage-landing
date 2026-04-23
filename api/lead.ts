@@ -29,6 +29,7 @@ export default async function handler(req: any, res: any) {
   zip: data.zip,
   trusted_form: data.trusted_form,
   jornaya_id: data.jornaya_id,
+  tcpa_text: data.tcpa_text,
   billable: false
 });
 
