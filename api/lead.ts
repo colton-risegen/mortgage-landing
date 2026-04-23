@@ -21,7 +21,12 @@ export default async function handler(req: any, res: any) {
 
     console.log("NEW LEAD:", data);
 
-   await supabase.from('leads').insert({
+   const isBillable =
+  data.trusted_form &&
+  data.jornaya_id &&
+  data.tcpa_text === "User agreed to TCPA consent on form submission";
+
+await supabase.from('leads').insert({
   first_name: data.first_name,
   last_name: data.last_name,
   phone: data.phone,
@@ -30,7 +35,7 @@ export default async function handler(req: any, res: any) {
   trusted_form: data.trusted_form,
   jornaya_id: data.jornaya_id,
   tcpa_text: data.tcpa_text,
-  billable: false
+  billable: isBillable
 });
 
     res.status(200).send('OK');
