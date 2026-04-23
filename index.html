@@ -26,7 +26,17 @@
     <input name="zip" placeholder="ZIP Code" required>
     <input type="hidden" name="trusted_form" id="trusted_form">
     <input type="hidden" name="leadid_token" id="leadid_token">
+    <input type="hidden" name="tcpa_text" id="tcpa_text">
 
+    <div style="text-align:left; margin-top:10px;">
+  <label style="font-size:12px; line-height:1.4;">
+    <input type="checkbox" id="tcpa_consent" required style="margin-right:6px;">
+    By clicking “Get My Quote”, I provide my electronic signature and consent to be contacted by 
+    <strong>licensed insurance agents</strong> regarding mortgage protection at the phone number 
+    provided, including via automated dialing systems, prerecorded calls, and SMS/MMS, even if I am on a Do Not Call list. 
+    Consent is not required to purchase.
+  </label>
+</div>
     <button type="submit">Get My Quote</button>
   </form>
 </div>
@@ -50,7 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
   email: form.email.value,
   zip: form.zip.value,
   trusted_form: document.getElementById('trusted_form').value,
-  jornaya_id: document.getElementById('leadid_token').value
+  jornaya_id: document.getElementById('leadid_token').value,
+  tcpa_text: document.getElementById('tcpa_consent').checked
+    ? "User agreed to TCPA consent on form submission"
+    : "NOT CONSENTED"
 };
 
     console.log("SENDING:", data);
