@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
   address: form.address.value,
   city: form.city.value,
   state: form.state.value.toUpperCase(),
-  zip: form.zip.value,
+  postal_code: form.zip.value,
 
   trusted_form_cert_url: document.getElementById('xxTrustedFormCertUrl').value,
   universal_leadid: document.getElementById('universal_leadid').value,
@@ -144,14 +144,24 @@ document.addEventListener('DOMContentLoaded', function () {
 };
 
     console.log("SENDING:", data);
+    console.log("TF:", document.getElementById('xxTrustedFormCertUrl').value);
+    console.log("JORNAYA:", document.getElementById('universal_leadid').value);
 
-    await fetch('/api/lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+   const res = await fetch('https://risegenleads.com/api/integrations/integrity', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+});
 
-    alert("Thanks! A licensed agent will contact you shortly.");
+const result = await res.json();
+
+console.log("API RESULT:", result);
+
+if (result.success) {
+  alert("Thanks! A licensed agent will contact you shortly.");
+} else {
+  alert("Submission failed. Please try again.");
+}
   });
 });
 </script>
