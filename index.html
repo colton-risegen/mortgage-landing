@@ -90,18 +90,21 @@
   <form id="leadForm">
 
     <input type="hidden" name="xxTrustedFormCertUrl" id="xxTrustedFormCertUrl">
-<input type="hidden" name="universal_leadid" id="universal_leadid">
-<input type="hidden" name="tcpa_text" id="tcpa_text">
+    <input type="hidden" name="universal_leadid" id="universal_leadid">
+    <input type="hidden" name="tcpa_text" id="tcpa_text">
 
     <input name="first_name" placeholder="First Name" required>
     <input name="last_name" placeholder="Last Name" required>
     <input name="phone" placeholder="Phone" required pattern="[0-9]{10}">
     <input name="email" placeholder="Email" required type="email">
     <input name="zip" placeholder="ZIP Code" required pattern="[0-9]{5}">
+    <input name="address" placeholder="Street Address" required>
+    <input name="city" placeholder="City" required>
+    <input name="state" placeholder="State" required maxlength="2">
 
     <div style="text-align:left; margin-top:10px;">
-     <label class="consent">
-  <input type="checkbox" id="tcpa_consent" required>
+    <label class="consent">
+    <input type="checkbox" id="tcpa_consent" required>
   By clicking “Get My Quote”, you agree to be contacted by licensed agents via call, text, or email regarding mortgage protection products at the number and email you provided, including via automated technology. Consent is not required to purchase.
 </label>
     </div>
