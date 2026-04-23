@@ -5,87 +5,152 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    body { font-family: Arial; text-align: center; background:#f9fafb; padding:20px; }
-    .box { max-width:400px; margin:auto; background:white; padding:20px; border-radius:10px; }
-    input { width:100%; padding:10px; margin:8px 0; }
-    button { width:100%; padding:12px; background:#2563eb; color:white; border:none; }
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') center/cover no-repeat;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: -40px auto 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .benefits {
+      max-width: 420px;
+      margin: 20px auto;
+      font-size: 14px;
+    }
+
+    .benefits div {
+      margin-bottom: 8px;
+    }
+
+    .consent {
+      font-size: 11px;
+      text-align: left;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>Protect Your Mortgage. Protect Your Family.</h2>
-  <p>Get a free quote in minutes.</p>
+<div class="hero">
+  <h1>Protect Your Home. Protect Your Family.</h1>
+  <p>Affordable mortgage protection coverage in minutes</p>
+</div>
 
+<div class="container">
   <form id="leadForm">
-    <input name="first_name" placeholder="First Name" required>
-    <input name="last_name" placeholder="Last Name" required>
-    <input name="phone" placeholder="Phone" required pattern="[0-9]{10}" title="Enter 10 digit phone number">
-    <input name="email" placeholder="Email" required type="email">
-    <input name="zip" placeholder="ZIP Code" required pattern="[0-9]{5}" title="Enter 5 digit ZIP code">
+
     <input type="hidden" name="trusted_form" id="trusted_form">
     <input type="hidden" name="leadid_token" id="leadid_token">
     <input type="hidden" name="tcpa_text" id="tcpa_text">
 
+    <input name="first_name" placeholder="First Name" required>
+    <input name="last_name" placeholder="Last Name" required>
+    <input name="phone" placeholder="Phone" required pattern="[0-9]{10}">
+    <input name="email" placeholder="Email" required type="email">
+    <input name="zip" placeholder="ZIP Code" required pattern="[0-9]{5}">
+
     <div style="text-align:left; margin-top:10px;">
-  <label style="font-size:12px; line-height:1.4;">
-    <input type="checkbox" id="tcpa_consent" required style="margin-right:6px;">
-    By clicking “Get My Quote”, I provide my electronic signature and consent to be contacted by 
-    <strong>licensed insurance agents</strong> regarding mortgage protection at the phone number 
-    provided, including via automated dialing systems, prerecorded calls, and SMS/MMS, even if I am on a Do Not Call list. 
-    Consent is not required to purchase.
-  </label>
-</div>
-    <button type="submit">Get My Quote</button>
+      <label class="consent">
+        <input type="checkbox" id="tcpa_consent" required>
+        By clicking “Get My Quote”, you agree to be contacted by licensed agents via call, text, or email regarding mortgage protection. Consent is not required to purchase.
+      </label>
+    </div>
+
+    <button type="submit">Get My Free Quote</button>
   </form>
+</div>
+
+<div class="benefits">
+  <div>✔ Protect your family from mortgage burden</div>
+  <div>✔ Fast approvals with no medical exams (in many cases)</div>
+  <div>✔ Affordable monthly plans</div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('leadForm');
 
-  if (!form) {
-    console.error("FORM NOT FOUND");
-    return;
-  }
-
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const data = {
-  first_name: form.first_name.value,
-  last_name: form.last_name.value,
-  phone: form.phone.value,
-  email: form.email.value,
-  zip: form.zip.value,
-  trusted_form: document.getElementById('trusted_form').value,
-  jornaya_id: document.getElementById('leadid_token').value,
-  tcpa_text: document.getElementById('tcpa_consent').checked
-    ? "User agreed to TCPA consent on form submission"
-    : "NOT CONSENTED"
-};
+      first_name: form.first_name.value,
+      last_name: form.last_name.value,
+      phone: form.phone.value.replace(/\D/g, ''),
+      email: form.email.value,
+      zip: form.zip.value,
+      trusted_form: document.getElementById('trusted_form').value,
+      jornaya_id: document.getElementById('leadid_token').value,
+      tcpa_text: document.getElementById('tcpa_consent').checked
+        ? "User agreed to TCPA consent on form submission"
+        : "NOT CONSENTED"
+    };
 
     console.log("SENDING:", data);
 
-    try {
-      const res = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+    await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
 
-      console.log("RESPONSE:", await res.text());
-      alert("Lead submitted");
-    } catch (err) {
-      console.error("ERROR:", err);
-    }
+    alert("Thanks! A licensed agent will contact you shortly.");
   });
 });
 </script>
 
-<!-- TRUSTEDFORM SCRIPT -->
-<script type="text/javascript">
+<!-- TRUSTEDFORM -->
+<script>
 (function() {
   var tf = document.createElement('script');
   tf.type = 'text/javascript';
@@ -96,19 +161,8 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 
-<!-- JORNAYA SCRIPT -->
-<script id="LeadiDscript" type="text/javascript">
-(function() {
-var s = document.createElement('script');
-s.id = 'LeadiDscript_campaign';
-s.type = 'text/javascript';
-s.async = true;
-s.src = '//create.lidstatic.com/campaign/d1fdddfe-9032-81b5-2356-5fdbe83d0957.js?snippet_version=2';
-var LeadiDscript = document.getElementById('LeadiDscript');
-LeadiDscript.parentNode.insertBefore(s, LeadiDscript);
-})();
-</script>
-<noscript><img src='//create.leadid.com/noscript.gif?lac=5544F172-B5DB-41FA-A6A0-171A053F0B4E&lck=d1fdddfe-9032-81b5-2356-5fdbe83d0957&snippet_version=2' /></noscript>
+<!-- JORNAYA (YOUR REAL SCRIPT SHOULD REPLACE THIS) -->
+<script src="https://create.leadid.com/snippet.js" async></script>
 
 </body>
 </html>
