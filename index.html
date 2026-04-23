@@ -24,6 +24,8 @@
     <input name="phone" placeholder="Phone" required>
     <input name="email" placeholder="Email" required>
     <input name="zip" placeholder="ZIP Code" required>
+    <input type="hidden" name="trusted_form" id="trusted_form">
+    <input type="hidden" name="jornaya_id" id="jornaya_id">
 
     <button type="submit">Get My Quote</button>
   </form>
@@ -42,12 +44,14 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
 
     const data = {
-      first_name: form.first_name.value,
-      last_name: form.last_name.value,
-      phone: form.phone.value,
-      email: form.email.value,
-      zip: form.zip.value
-    };
+  first_name: form.first_name.value,
+  last_name: form.last_name.value,
+  phone: form.phone.value,
+  email: form.email.value,
+  zip: form.zip.value,
+  trusted_form: document.getElementById('trusted_form').value,
+  jornaya_id: document.getElementById('jornaya_id').value
+};
 
     console.log("SENDING:", data);
 
