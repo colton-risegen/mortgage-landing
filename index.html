@@ -89,9 +89,9 @@
 <div class="container">
   <form id="leadForm">
 
-    <input type="hidden" name="trusted_form" id="trusted_form">
-    <input type="hidden" name="leadid_token" id="leadid_token">
-    <input type="hidden" name="tcpa_text" id="tcpa_text">
+    <input type="hidden" name="xxTrustedFormCertUrl" id="xxTrustedFormCertUrl">
+<input type="hidden" name="universal_leadid" id="universal_leadid">
+<input type="hidden" name="tcpa_text" id="tcpa_text">
 
     <input name="first_name" placeholder="First Name" required>
     <input name="last_name" placeholder="Last Name" required>
@@ -100,10 +100,10 @@
     <input name="zip" placeholder="ZIP Code" required pattern="[0-9]{5}">
 
     <div style="text-align:left; margin-top:10px;">
-      <label class="consent">
-        <input type="checkbox" id="tcpa_consent" required>
-        By clicking “Get My Quote”, you agree to be contacted by licensed agents via call, text, or email regarding mortgage protection. Consent is not required to purchase.
-      </label>
+     <label class="consent">
+  <input type="checkbox" id="tcpa_consent" required>
+  By clicking “Get My Quote”, you agree to be contacted by licensed agents via call, text, or email regarding mortgage protection products at the number and email you provided, including via automated technology. Consent is not required to purchase.
+</label>
     </div>
 
     <button type="submit">Get My Free Quote</button>
@@ -129,11 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
       phone: form.phone.value.replace(/\D/g, ''),
       email: form.email.value,
       zip: form.zip.value,
-      trusted_form: document.getElementById('trusted_form').value,
-      jornaya_id: document.getElementById('leadid_token').value,
-      tcpa_text: document.getElementById('tcpa_consent').checked
-        ? "User agreed to TCPA consent on form submission"
-        : "NOT CONSENTED"
+     trusted_form_cert_url: document.getElementById('xxTrustedFormCertUrl').value,
+universal_leadid: document.getElementById('universal_leadid').value,
+      tcpa_text: document.querySelector('.consent').innerText
     };
 
     console.log("SENDING:", data);
@@ -148,21 +146,36 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
-
-<!-- TRUSTEDFORM -->
-<script>
+<!-- TrustedForm -->
+<script type="text/javascript">
 (function() {
-  var tf = document.createElement('script');
-  tf.type = 'text/javascript';
-  tf.async = true;
-  tf.src = 'https://api.trustedform.com/trustedform.js?field=trusted_form';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(tf, s);
+var tf = document.createElement('script');
+tf.type = 'text/javascript';
+tf.async = true;
+tf.src = ("https:" == document.location.protocol ? 'https' : 'http') +
+'://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=' +
+new Date().getTime() + Math.random();
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tf, s);
 })();
 </script>
+<noscript>
+<img src='https://api.trustedform.com/ns.gif' />
+</noscript>
 
-<!-- JORNAYA (YOUR REAL SCRIPT SHOULD REPLACE THIS) -->
-<script src="https://create.leadid.com/snippet.js" async></script>
+  <script id="LeadiDscript" type="text/javascript">
+(function() {
+var s = document.createElement('script');
+s.id = 'LeadiDscript_campaign';
+s.type = 'text/javascript';
+s.async = true;
+s.src = '//create.lidstatic.com/campaign/d1fdddfe-9032-81b5-2356-5fdbe83d0957.js?snippet_version=2';
+var LeadiDscript = document.getElementById('LeadiDscript');
+LeadiDscript.parentNode.insertBefore(s, LeadiDscript);
+})();
+</script>
+<noscript>
+<img src='//create.leadid.com/noscript.gif?lac=5544F172-B5DB-41FA-A6A0-171A053F0B4E&lck=d1fdddfe-9032-81b5-2356-5fdbe83d0957&snippet_version=2' />
+</noscript>
 
 </body>
 </html>
