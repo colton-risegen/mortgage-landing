@@ -201,7 +201,12 @@ console.log("API RESULT:", result);
 if (result.success) {
 
 if (typeof fbq === "function") {
-  fbq('track', 'Lead');
+  fbq('track', 'Lead', {
+  content_name: 'Mortgage Protection Lead',
+  content_category: 'Insurance',
+  value: 27.00,
+  currency: 'USD'
+});
 }
   
   alert("Thanks! A licensed agent will contact you shortly.");
