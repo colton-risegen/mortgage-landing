@@ -236,10 +236,24 @@ function setJornaya() {
 }
 
 // Run multiple times to ensure script has loaded
-setJornaya();
-setTimeout(setJornaya, 500);
-setTimeout(setJornaya, 1000);
-setTimeout(setJornaya, 1500);
+let jornayaAttempts = 0;
+
+function waitForJornaya() {
+  if (window.leadid && window.leadid.token) {
+    document.getElementById('universal_leadid').value = window.leadid.token;
+    console.log("Jornaya set:", window.leadid.token);
+  } else {
+    jornayaAttempts++;
+    if (jornayaAttempts < 10) {
+      console.log("Waiting for Jornaya...");
+      setTimeout(waitForJornaya, 500);
+    } else {
+      console.log("Jornaya failed to load.");
+    }
+  }
+}
+
+waitForJornaya();
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
