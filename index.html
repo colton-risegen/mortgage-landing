@@ -224,10 +224,12 @@ function setJornaya() {
   try {
     const jornayaField = document.getElementById('universal_leadid');
 
-    // Jornaya injects into window.LeadiD
-    if (window.LeadiD && window.LeadiD.token) {
-      jornayaField.value = window.LeadiD.token;
-    }
+  if (window.leadid && window.leadid.token) {
+  jornayaField.value = window.leadid.token;
+  console.log("Jornaya set:", window.leadid.token);
+} else {
+  console.log("Jornaya not ready yet...");
+}
   } catch (e) {
     console.error("Jornaya assignment error:", e);
   }
