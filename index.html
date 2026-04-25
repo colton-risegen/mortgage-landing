@@ -222,30 +222,27 @@ document.addEventListener('DOMContentLoaded', function () {
 // Run multiple times to ensure script has loaded
 let jornayaAttempts = 0;
 
-function waitForJornaya() {
+function getJornayaToken() {
   const field = document.getElementById('universal_leadid');
 
-  if (window.LeadiD && typeof window.LeadiD.getLid === "function") {
-    const lid = window.LeadiD.getLid();
-
-    if (lid) {
-      field.value = lid;
-      console.log("✅ Jornaya set:", lid);
-      return;
-    }
+  // Method 1: direct token (preferred)
+  if (window.LeadiD && window.LeadiD.token) {
+    field.value = window.LeadiD.token;
+    console.log("✅ Jornaya token (direct):", window.LeadiD.token);
+    return;
   }
 
-  jornayaAttempts++;
-
-  if (jornayaAttempts < 15) {
-    console.log("⏳ Waiting for Jornaya...");
-    setTimeout(waitForJornaya, 500);
-  } else {
-    console.log("❌ Jornaya failed to load.");
+  // Method 2: cookie fallback
+  const match = document.cookie.match(/leadid_token=([^;]+)/);
+  if (match) {
+    field.value = match[1];
+    console.log("✅ Jornaya token (cookie):", match[1]);
+    return;
   }
+
+  console.log("❌ Jornaya token not found");
 }
-
-waitForJornaya();
+setTimeout(getJornayaToken, 1500);
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
