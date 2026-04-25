@@ -224,9 +224,9 @@ function setJornaya() {
   try {
     const jornayaField = document.getElementById('universal_leadid');
 
-  if (window.leadid && window.leadid.token) {
-  jornayaField.value = window.leadid.token;
-  console.log("Jornaya set:", window.leadid.token);
+ if (window.LeadiD && window.LeadiD.token) {
+  jornayaField.value = window.LeadiD.token;
+  console.log("Jornaya set:", window.LeadiD.token);
 } else {
   console.log("Jornaya not ready yet...");
 }
@@ -239,9 +239,9 @@ function setJornaya() {
 let jornayaAttempts = 0;
 
 function waitForJornaya() {
-  if (window.leadid && window.leadid.token) {
-    document.getElementById('universal_leadid').value = window.leadid.token;
-    console.log("Jornaya set:", window.leadid.token);
+ if (window.LeadiD && window.LeadiD.token)
+    document.getElementById('universal_leadid').value = window.LeadiD.token;
+    console.log("Jornaya set:", window.LeadiD.token);
   } else {
     jornayaAttempts++;
     if (jornayaAttempts < 10) {
