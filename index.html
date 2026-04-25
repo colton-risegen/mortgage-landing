@@ -238,17 +238,22 @@ function setJornaya() {
 // Run multiple times to ensure script has loaded
 let jornayaAttempts = 0;
 
+let jornayaAttempts = 0;
+
 function waitForJornaya() {
- if (window.LeadiD && window.LeadiD.token)
-    document.getElementById('universal_leadid').value = window.LeadiD.token;
-    console.log("Jornaya set:", window.LeadiD.token);
+  const field = document.getElementById('universal_leadid');
+
+  if (window.LeadiD && window.LeadiD.token) {
+    field.value = window.LeadiD.token;
+    console.log("✅ Jornaya set:", window.LeadiD.token);
   } else {
     jornayaAttempts++;
-    if (jornayaAttempts < 10) {
-      console.log("Waiting for Jornaya...");
+
+    if (jornayaAttempts < 15) {
+      console.log("⏳ Waiting for Jornaya...");
       setTimeout(waitForJornaya, 500);
     } else {
-      console.log("Jornaya failed to load.");
+      console.log("❌ Jornaya failed to load.");
     }
   }
 }
