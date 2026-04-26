@@ -182,9 +182,6 @@
       <input name="last_name" placeholder="Last Name" required>
       <input name="phone" placeholder="Phone" required pattern="[0-9]{10}">
       <input name="email" placeholder="Email" required type="email">
-      <input name="zip" placeholder="ZIP Code" required pattern="[0-9]{5}">
-      <input name="address" placeholder="Street Address" required>
-      <input name="city" placeholder="City" required>
       <input name="state" placeholder="State" required maxlength="2">
 
       <div style="text-align:left; margin-top:10px;">
@@ -247,16 +244,13 @@ setTimeout(getJornayaToken, 1500);
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-   const data = {
+  const data = {
   first_name: form.first_name.value,
   last_name: form.last_name.value,
   phone: form.phone.value.replace(/\D/g, ''),
   email: form.email.value,
 
-  address: form.address.value,
-  city: form.city.value,
   state: form.state.value.toUpperCase(),
-  postal_code: form.zip.value,
   lead_type: "mortgage",
 
   trusted_form_cert_url: document.getElementById('xxTrustedFormCertUrl').value,
@@ -264,7 +258,6 @@ setTimeout(getJornayaToken, 1500);
 
   tcpa_text: document.querySelector('.consent').innerText
 };
-
     console.log("SENDING:", data);
     console.log("TF:", document.getElementById('xxTrustedFormCertUrl').value);
     console.log("JORNAYA:", document.getElementById('universal_leadid').value);
